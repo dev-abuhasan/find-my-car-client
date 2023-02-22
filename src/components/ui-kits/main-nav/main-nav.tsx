@@ -2,10 +2,20 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppContext } from '../../../services/context/app-context';
 import { home_v1 } from '../../../services/utils/svg';
+import LoginIcon from '@mui/icons-material/Login';
+import * as slug from '../../../routes/slug';
 import Logo from '../logo';
 import './main-nav.scss';
+import ClickBtn from '../buttons/click-btn';
+import { useSelector } from 'react-redux';
+import { logout } from '../../../services/redux/user/user-actions';
+import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from '@reduxjs/toolkit';
 
 const MainNav: React.FC = () => {
+    const dispatch: ThunkDispatch<{}, {}, any> = useDispatch();
+    const { user } = useSelector((state: any) => state.user);
+
     const { pathname } = useLocation();
     const { setScrollTrue } = React.useContext(AppContext);
 
@@ -48,12 +58,20 @@ const MainNav: React.FC = () => {
 
     const navList = [
         {
-            path: '/',
+            path: slug.HOME,
             name: 'Home',
             icon: home_v1,
         },
+        {
+            path: slug.SIGNIN,
+            name: 'Login',
+            icon: <LoginIcon />,
+        },
     ]
-
+    const handleClick = () => {
+        console.log('object');
+        dispatch(logout());
+    }
     return (
         <div className={`main-header px-1 `} ref={myRef}>
             <div className="container mx-auto d-flex align-items-center justify-content-between nav_bg_parent">
@@ -76,6 +94,12 @@ const MainNav: React.FC = () => {
                             </li>
                         )
                     }
+                    {user && <li className="nav-link">
+                        <ClickBtn onClick={() => handleClick()}>
+                            <img width="25px" className='me-2' src={user?.avatar} alt={user?.firstName} />
+                            Logout
+                        </ClickBtn>
+                    </li>}
                 </ul>
             </div>
         </div>

@@ -232,8 +232,7 @@ const Froms: React.FC<SubmitFormProps> = ({
                                                         </Button>
                                                     ) : (
                                                         <Button sx={{ minWidth: '10px', borderRadius: '100%', height: '40px' }}>
-                                                            <VisibilityOffIcon onClick={() => setViewPass(false)} />
-
+                                                            <VisibilityOffIcon onClick={() => setViewPass(true)} />
                                                         </Button>
                                                     )}
                                                 </InputAdornment>
@@ -257,10 +256,10 @@ const Froms: React.FC<SubmitFormProps> = ({
                         disabled={btnDisable ? true : false}
                         type="submit"
                         fullWidth
-                        className={`${btnCn}`}
+                        className={`${btnCn} text-light text-capitalize fw-bold`}
                         variant={btnVariant ? btnVariant : 'contained'}
                         color={btnColor ? btnColor : 'primary'}
-                        sx={{ boxShadow: shadow ? shadow : 'none', display: 'flex', alignItems: 'center', padding: '7px 0' }}
+                        sx={{ boxShadow: 'none', display: 'flex', alignItems: 'center', padding: '7px 0' }}
                     >
                         {btnIcon === 'save' ? (
                             <SaveIcon />

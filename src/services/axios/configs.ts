@@ -2,7 +2,7 @@ interface UserInfo {
     token: string;
 }
 
-const getToken = JSON.parse(localStorage.getItem("userInfo") ?? "null") as UserInfo | null;
+const getToken = JSON.parse(localStorage.getItem("finMyCarInfo") ?? "null") as UserInfo | null;
 
 export const headerConfig = {
     headers: {

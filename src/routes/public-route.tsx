@@ -8,7 +8,9 @@ import * as slug from './slug';
 // dashboard routing
 const Home = Loadable(lazy(() => import('../pages/home/home')));
 const CardDetails = Loadable(lazy(() => import('../pages/car-details/car-details')));
-
+const Login = Loadable(lazy(() => import('../pages/auth/login')));
+const Signup = Loadable(lazy(() => import('../pages/auth/signup')));
+const UserActivation = Loadable(lazy(() => import('../pages/auth/user-activation')));
 
 
 const PublicRoute = {
@@ -22,6 +24,18 @@ const PublicRoute = {
         {
             path: slug.CAR_DETAILS,
             element: <CardDetails />,
+        },
+        {
+            path: slug.SIGNIN,
+            element: <Login />,
+        },
+        {
+            path: slug.SIGNUP,
+            element: <Signup />,
+        },
+        {
+            path: slug.USER_ACTIVE,
+            element: <UserActivation />,
         },
         {
             path: "*",

@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import { toast } from 'react-hot-toast';
 import { headerConfig } from './configs';
 // import toast from "react-hot-toast";
 
@@ -10,8 +11,49 @@ const instance: AxiosInstance = axios.create({
 export async function GetData(url: string, notification = true) {
     try {
         const response = await instance.get(url);
+        if (notification) {
+            toast.success(response?.data.message ? response?.data.message : "Success");
+        }
         return response.data;
     } catch (error: unknown) {
-        console.error(error);
+        console.log("Get Error===>", error);
+        if (axios.isAxiosError(error)) {
+            if (error.response?.data.items?.error) {
+                toast.error(error.response.data.items.error);
+            } else {
+                toast.error(
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message
+                );
+            }
+        } else {
+            toast.error(error instanceof Error ? error.message : 'Unknown error occurred');
+        }
     }
 }
+
+export const PostData = async (url: string, body: any, notification = true) => {
+    try {
+        let data = await axios.post(url, body);
+        if (notification) {
+            toast.success(data?.data.message ? data?.data.message : "Success");
+        }
+        return data;
+    } catch (error: any) {
+        console.log("Post Error===>", error);
+        if (axios.isAxiosError(error)) {
+            if (error.response?.data.items?.error) {
+                toast.error(error.response.data.items.error);
+            } else {
+                toast.error(
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message
+                );
+            }
+        } else {
+            toast.error(error instanceof Error ? error.message : 'Unknown error occurred');
+        }
+    }
+};
