@@ -1,0 +1,60 @@
+@import "./override";
+@import "./fonts";
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: "Baloo Paaji 2", cursive;
+    color: $dark;
+    background-color: $background;
+}
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: $primary;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: $primaryD;
+}
+
+::-moz-selection {
+    color: $light;
+    background: $primaryD;
+}
+::selection {
+    color: $light;
+    background: $primary;
+}
+.scrollToTop {
+    position: fixed;
+    top: auto;
+    bottom: 10px;
+    left: auto;
+    right: 10px;
+    z-index: 1000;
+    transition: all 0.5s;
+
+    .scrollUp {
+        background: transparent;
+        border: none;
+        transition: all 0.5s;
+        
+        a {
+            background-color: $primary;
+            padding: 10px;
+            border-radius: 3px;
+            svg {
+                color: $light;
+            }
+        }
+
+        &:hover{
+            transform: scale(1.1);
+        }
+    }
+}
+.parent_section {
+    padding-top: 80px;
+}

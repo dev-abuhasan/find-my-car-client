@@ -1,0 +1,53 @@
+@import "../../../services/scss/global.scss";
+
+.btn_click {
+    background-color: none;
+    transition: opacity 0.2s ease-in-out;
+    font-family: $fontDefault;
+    position: relative;
+    text-decoration: none;
+    z-index: 0;
+    display: inline-block;
+
+    &::before {
+        content: "";
+        display: block;
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: -1;
+        background-color: $primary;
+        transition: all 0.3s ease;
+    }
+    &:hover::before {
+        height: 20%;
+    }
+
+    .svg {
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+
+    .rect {
+        fill: none;
+        stroke: $primary;
+        stroke-width: 3;
+        stroke-dasharray: 422, 0;
+        transition: all 0.35s linear;
+    }
+    &:hover {
+        background-color: transparent !important;
+        .rect {
+            stroke: $primary;
+            stroke-width: 3;
+            stroke-dasharray: 15, 310;
+            stroke-dashoffset: 48;
+            transition: all 1.35s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+    }
+}
