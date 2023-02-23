@@ -4,6 +4,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { DeleteData, GetData } from '../../services/axios/https';
 import * as api from '../../services/axios/api';
+import { toast } from 'react-hot-toast';
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
@@ -46,11 +47,16 @@ const SearchHistory: React.FC = () => {
         }
     }
     const deleteSearchAll = async () => {
-        let delData = await DeleteData(`${api.GET_SEARCH_HISTORY}/delete`, {}, false, true);
-        if (delData) {
-            let getData = await GetData(`${api.GET_SEARCH_HISTORY}?pageNumber=${curr}`, false);
-            setData(getData?.items)
+        if (data?.count && data?.count > 0) {
+            let delData = await DeleteData(`${api.GET_SEARCH_HISTORY}/delete`, {}, false, true);
+            if (delData) {
+                let getData = await GetData(`${api.GET_SEARCH_HISTORY}?pageNumber=${curr}`, false);
+                setData(getData?.items)
+            }
+        } else{
+            toast.error('Search history not found')
         }
+
     }
     const list = (anchor: Anchor) => (
         <Box

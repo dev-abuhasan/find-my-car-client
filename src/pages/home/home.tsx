@@ -4,6 +4,7 @@ import * as api from '../../services/axios/api';
 import { GetData } from '../../services/axios/https';
 import ClickBtn from '../../components/ui-kits/buttons/click-btn';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import { Card } from 'react-bootstrap';
 
 interface DataItem {
     pages?: number;
@@ -29,7 +30,7 @@ const Home: React.FC = () => {
     const [seats, setSeats] = React.useState<number[]>([0, 0]);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-
+    console.log(allCars);
     const [filter, setFilter] = React.useState<Filters>({
         keyword: null,
         sortPrice: null,
@@ -94,7 +95,7 @@ const Home: React.FC = () => {
 
     return (
         <div className='container'>
-            <div className=''>
+            <div className="filter-data">
                 <ClickBtn sx={{ width: 'auto' }} onClick={(e: any) => handleClick(e)}>
                     <FilterAltIcon />
                     Filters - Data
@@ -221,6 +222,32 @@ const Home: React.FC = () => {
                         </div>
                     </div>
                 </Menu>
+            </div>
+            <div className=' mt-2'>
+                <div className='row'>
+                    <div className="col-md-3">
+                        <Card style={{ width: '100%', height: '100%' }}>
+                            <Card.Header className='d-flex justify-content-between'>
+                                <span>In Stock: <b className='text-primary'>countInStock</b></span>
+                                <span>Year: <b className='text-primary'>year</b></span>
+                            </Card.Header>
+                            <Card.Img style={{ borderRadius: '0 ' }} variant="top" src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8Y2Fyc3xlbnwwfHwwfHw%3D&w=1000&q=80" />
+                            <Card.Body>
+                                <Card.Title>brand</Card.Title>
+                                
+                                <Card.Text>
+                                    Some quick example text to build on the card title and make up the
+                                    bulk of the card's content.
+                                </Card.Text>
+                            </Card.Body>
+
+                            <Card.Footer>
+                                <Card.Link href="#">Card Link</Card.Link>
+                                <Card.Link href="#">Another Link</Card.Link>
+                            </Card.Footer>
+                        </Card>
+                    </div>
+                </div>
                 <Box sx={{ border: 1, margin: '10px 0 0 0', padding: '5px 0', borderColor: 'primary.main', display: 'flex', justifyContent: 'center' }}>
                     <Pagination count={allCars?.pages} page={curr} onChange={handleChange} />
                 </Box>
