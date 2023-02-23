@@ -57,3 +57,56 @@ export const PostData = async (url: string, body: any, notification = true) => {
         }
     }
 };
+
+
+export const PutData = async (url: string, body: any, notification = true) => {
+    try {
+        let data = await axios.post(url, body);
+        if (notification) {
+            toast.success(data?.data.message ? data?.data.message : "Success");
+        }
+        return data;
+    } catch (error: any) {
+        console.log("Put Error===>", error);
+        if (axios.isAxiosError(error)) {
+            if (error.response?.data.items?.error) {
+                toast.error(error.response.data.items.error);
+            } else {
+                toast.error(
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message
+                );
+            }
+        } else {
+            toast.error(error instanceof Error ? error.message : 'Unknown error occurred');
+        }
+    }
+};
+
+export const DeleteData = async (url: string, body: any, notification = true,) => {
+    try {
+
+        let data = await axios.delete(url, { data: body });
+        if (data) {
+            toast.success(data?.data?.message ? data?.data?.message : "Success");
+        }
+        return data;
+
+    } catch (error) {
+        console.log("Delete Error===>", error);
+        if (axios.isAxiosError(error)) {
+            if (error.response?.data.items?.error) {
+                toast.error(error.response.data.items.error);
+            } else {
+                toast.error(
+                    error.response && error.response.data.message
+                        ? error.response.data.message
+                        : error.message
+                );
+            }
+        } else {
+            toast.error(error instanceof Error ? error.message : 'Unknown error occurred');
+        }
+    }
+};
