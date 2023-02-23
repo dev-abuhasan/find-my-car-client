@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Divider, Button, Drawer, Box, Pagination } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import CancelIcon from '@mui/icons-material/Cancel';
-import { GetData } from '../../services/axios/https';
+import { DeleteData, GetData } from '../../services/axios/https';
 import * as api from '../../services/axios/api';
 
 type Anchor = 'top' | 'left' | 'bottom' | 'right';
@@ -17,7 +17,6 @@ interface DataItem {
 const SearchHistory: React.FC = () => {
     const [state, setState] = React.useState({ right: false });
     const [data, setData] = React.useState<DataItem>({});
-    console.log(data);
 
     const toggleDrawer =
         (anchor: Anchor, open: boolean) =>
@@ -40,8 +39,17 @@ const SearchHistory: React.FC = () => {
     };
 
     const deleteSearchByID = async (e: string) => {
-        if (window.confirm('Are you sure to delete Data')) {
-            console.log(e);
+        let deleteById = await DeleteData(`${api.GET_SEARCH_HISTORY}/${e}`, {}, false, true);
+        if (deleteById) {
+            let getData = await GetData(`${api.GET_SEARCH_HISTORY}?pageNumber=${curr}`, false);
+            setData(getData?.items)
+        }
+    }
+    const deleteSearchAll = async () => {
+        let delData = await DeleteData(`${api.GET_SEARCH_HISTORY}/delete`, {}, false, true);
+        if (delData) {
+            let getData = await GetData(`${api.GET_SEARCH_HISTORY}?pageNumber=${curr}`, false);
+            setData(getData?.items)
         }
     }
     const list = (anchor: Anchor) => (
@@ -51,7 +59,9 @@ const SearchHistory: React.FC = () => {
         >
             <div className='d-flex justify-content-between'>
                 <span>Search History</span>
-                <span className='text-danger'>Delete All</span>
+                <span className='text-danger' style={{ cursor: 'pointer' }} onClick={() => deleteSearchAll()}>
+                    Delete All
+                </span>
             </div>
             <Divider />
             <Box sx={{ height: '85vh', overflow: 'auto' }}>
@@ -63,17 +73,18 @@ const SearchHistory: React.FC = () => {
                                 {new Date(d?.createdAt).toLocaleString()}
                                 <CancelIcon className='text-danger' onClick={() => deleteSearchByID(d._id)} />
                             </div>
-
+                            <div className='pt-2'>
+                                {d?.data?.keyword ? d?.data?.keyword : d?.params}
+                            </div>
                         </div>
                     )}
                 </Box>
             </Box>
-            <Box sx={{ border: 1, padding: '5px 0', borderColor: 'primary.main' }}>
+            <Box sx={{ border: 1, padding: '5px 0', borderColor: 'primary.main', display: 'flex', justifyContent: 'center' }}>
                 <Pagination count={data?.pages} page={curr} onChange={handleChange} />
             </Box>
         </Box >
     );
-    console.log(curr);
 
     React.useEffect(() => {
         if (state.right) {

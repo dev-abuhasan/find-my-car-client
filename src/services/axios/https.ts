@@ -84,14 +84,29 @@ export const PutData = async (url: string, body: any, notification = true) => {
     }
 };
 
-export const DeleteData = async (url: string, body: any, notification = true,) => {
+export const DeleteData = async (url: string, body: any, notification = true, confirm = true) => {
     try {
-
-        let data = await axios.delete(url, { data: body });
-        if (data) {
-            toast.success(data?.data?.message ? data?.data?.message : "Success");
+        if (confirm) {
+            if (window.confirm('Are you sure to delete!')) {
+                let data = await axios.delete(url, { data: body });
+                if (data) {
+                    toast.success(data?.data?.message ? data?.data?.message : "Success");
+                }
+                if (notification) {
+                    toast.success(data?.data.message ? data?.data.message : "Success");
+                }
+                return data;
+            }
+        } else {
+            let data = await axios.delete(url, { data: body });
+            if (data) {
+                toast.success(data?.data?.message ? data?.data?.message : "Success");
+            }
+            if (notification) {
+                toast.success(data?.data.message ? data?.data.message : "Success");
+            }
+            return data;
         }
-        return data;
 
     } catch (error) {
         console.log("Delete Error===>", error);
