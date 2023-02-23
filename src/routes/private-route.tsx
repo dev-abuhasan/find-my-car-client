@@ -7,7 +7,9 @@ import * as slug from './slug';
 
 // dashboard routing
 const Dashboard = Loadable(lazy(() => import('../pages/dashboard/dashboard')));
+const AddCar = Loadable(lazy(() => import('../pages/dashboard/add-car/add-car')));
 const Bookmarks = Loadable(lazy(() => import('../pages/dashboard/bookmarks/bookmarks')));
+const User = Loadable(lazy(() => import('../pages/dashboard/user-update/user')));
 
 
 const PrivateRoute = {
@@ -19,8 +21,16 @@ const PrivateRoute = {
             element: <Dashboard />,
         },
         {
+            path: slug.ADD_CAR,
+            element: <AddCar />,
+        },
+        {
             path: slug.BOOKMARKS,
             element: <Bookmarks />,
+        },
+        {
+            path: slug.USER,
+            element: <User />,
         },
     ],
 };

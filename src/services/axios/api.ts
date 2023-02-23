@@ -25,7 +25,7 @@ export const GET_CARS_RECOMMEND = `${HOST}/cars/recommend-cars`;
 export const GET_CARS_MOST_LIKE = `${HOST}/cars/user-most-like`;
 //Auth User CARS
 export const POST_CAR_CREATE_BY_USER = `${HOST}/cars/create`;
-export const GET_CAR_BY_USER = `${HOST}cars/user-car`;
+export const GET_CAR_BY_USER = `${HOST}/cars/user-car`;
 export const GET_CARS_TOP_BY_USER = `${HOST}/cars/top-cars`;
 export const PUT_CARS_USER_BY_ID = `${HOST}/cars/user-car`; /** /:id */
 export const DEL_CARS_USER_BY_ID = `${HOST}/cars/user-car`; /** /:id */

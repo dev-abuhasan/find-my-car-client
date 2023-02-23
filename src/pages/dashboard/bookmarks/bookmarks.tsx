@@ -34,15 +34,17 @@ const Bookmarks = () => {
         { title: "Delete", dataIndex: "user", type: 'delete' },
     ];
     const handleDelete = async (obj: any) => {
-        await DeleteData(`${api.DEL_BOOKMARKS_BY_ID}/${obj._id}`, {}, false, false);
-        setBookmarks(undefined);
+        let data = await DeleteData(`${api.DEL_BOOKMARKS_BY_ID}/${obj._id}`, {}, false, false);
+        if (data) {
+            setBookmarks(undefined);
+        }
     }
 
 
     return (
         <div>
             <h1>User Bookmarks</h1>
-            <div style={{ height: 400, width: '100%' }}>
+            <div>
                 <DataTable
                     rowKey="_id"
                     columns={table}

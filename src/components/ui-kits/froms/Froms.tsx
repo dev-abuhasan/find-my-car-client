@@ -139,6 +139,22 @@ const Froms: React.FC<SubmitFormProps> = ({
                                     sx={{ border: 'none', background: 'none', width: '15px' }}
                                 />
                             </Box>
+                        ) : d.type === 'date' ? (
+                            <Box sx={{ display: 'flex', alignItems: 'center', height: '100%', ...d.sx }}>
+                                {d.label}&nbsp;
+                                <TextField
+                                    id={`${i}-${d.name}`}
+                                    name={d.name}
+                                    size={d.size ? d.size : 'small'}
+                                    value={formik.values[d.name]}
+                                    onChange={formik.handleChange}
+                                    error={formik.touched[d.name] && Boolean(formik.errors[d.name])}
+                                    helperText={formik.touched[d.name] && formik.errors[d.name]}
+                                    className="formCheckBox"
+                                    type={d.type}
+                                    sx={{ border: 'none', background: 'none', width: '15px' }}
+                                />
+                            </Box>
                         ) : d.type === 'select' ? (
                             <Box sx={{ display: 'flex', alignItems: 'center', height: '100%', ...d.sx }}>
                                 <TextField
@@ -256,7 +272,7 @@ const Froms: React.FC<SubmitFormProps> = ({
                         disabled={btnDisable ? true : false}
                         type="submit"
                         fullWidth
-                        className={`${btnCn} text-light text-capitalize fw-bold`}
+                        className={`${btnCn} text-light text-capitalize fw-bold mt-2`}
                         variant={btnVariant ? btnVariant : 'contained'}
                         color={btnColor ? btnColor : 'primary'}
                         sx={{ boxShadow: 'none', display: 'flex', alignItems: 'center', padding: '7px 0' }}

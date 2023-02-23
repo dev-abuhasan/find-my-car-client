@@ -33,6 +33,16 @@ const PrivateLayout = (props: Props) => {
             icon: <FiberManualRecordIcon />,
         },
         {
+            path: slug.USER,
+            name: 'Update Profile',
+            icon: <FiberManualRecordIcon />,
+        },
+        {
+            path: slug.ADD_CAR,
+            name: 'Your Cars Update',
+            icon: <FiberManualRecordIcon />,
+        },
+        {
             path: slug.BOOKMARKS,
             name: 'Bookmarks',
             icon: <FiberManualRecordIcon />,

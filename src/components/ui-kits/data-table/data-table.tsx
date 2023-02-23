@@ -95,8 +95,8 @@ const DataTable = ({
                         <>
                             <img
                                 src={value ? value : "https://i.ibb.co/2hcLX81/user.png"}
-                                height="70px"
-                                width="70px"
+                                // height="70px"
+                                width="150px"
                                 alt="student"
                             />
                         </>
@@ -164,8 +164,8 @@ const DataTable = ({
                 dataSource={dataSource}
                 pagination={paginationFalse ? false : { position: ['bottomRight'] }}
                 {...args}
-            ></Table>
-        </div >
+            />
+        </div>
     );
 };
 

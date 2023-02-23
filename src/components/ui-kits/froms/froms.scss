@@ -61,8 +61,12 @@
     div {
         padding: 0;
     }
+    button {
+        z-index: -1;
+    }
     input {
         opacity: 0;
+        z-index: 2;
     }
     .fileNameTypo {
         text-overflow: ellipsis;
