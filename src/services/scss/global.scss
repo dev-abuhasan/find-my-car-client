@@ -40,7 +40,7 @@ body {
         background: transparent;
         border: none;
         transition: all 0.5s;
-        
+
         a {
             background-color: $primary;
             padding: 10px;
@@ -50,11 +50,26 @@ body {
             }
         }
 
-        &:hover{
+        &:hover {
             transform: scale(1.1);
         }
     }
 }
 .parent_section {
     padding-top: 80px;
+}
+
+.formCheckBox {
+    div {
+        background-color: transparent;
+    }
+    fieldset {
+        border: none;
+    }
+    p {
+        display: flex;
+        min-width: 280px;
+        padding: 0;
+        margin: 0;
+    }
 }
