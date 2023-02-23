@@ -1,0 +1,71 @@
+@import "../../../services/scss/global.scss";
+
+.rent-item {
+    padding: 10px;
+    text-align: center;
+    background: $light;
+    transition: 0.5s;
+    border-radius: 4px;
+
+    img {
+        border-radius: 4px;
+    }
+}
+
+.rent-item:hover,
+.rent-item.active {
+    background: $danger;
+}
+
+.rent-item h4 {
+    transition: 0.5s;
+}
+
+.rent-item:hover,
+.rent-item.active {
+    background: $background;
+    box-shadow: 0 0 5px $gray;
+}
+
+.carousel {
+    .carousel-control-next span {
+        background-color: $primary;
+        transition: all 0.3s ease;
+        border-radius: 100%;
+        padding: 15px;
+    }
+    .carousel-control-prev span {
+        background-color: $primary;
+        transition: all 0.3s ease;
+        border-radius: 100%;
+        padding: 15px;
+    }
+    &:hover .carousel-control-prev span {
+        background-color: $primaryD;
+        transform: scale(1.1);
+    }
+    &:hover .carousel-control-next span {
+        background-color: $primaryD;
+        transform: scale(1.1);
+    }
+
+    .carousel-item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .carousel-caption {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .content {
+            max-width: 500px;
+            width: 100%;
+            background-color: rgba($dark, 0.5);
+            box-shadow: 3px 3px 10px $dark;
+            border-radius: 4px;
+            padding: 10px 0;
+        }
+    }
+}
+

@@ -7,6 +7,7 @@ import * as slug from './slug';
 
 // dashboard routing
 const Home = Loadable(lazy(() => import('../pages/home/home')));
+const OfferCars = Loadable(lazy(() => import('../pages/offer-cars/offer-cars')));
 const CardDetails = Loadable(lazy(() => import('../pages/car-details/car-details')));
 const Login = Loadable(lazy(() => import('../pages/auth/login')));
 const Signup = Loadable(lazy(() => import('../pages/auth/signup')));
@@ -20,6 +21,10 @@ const PublicRoute = {
         {
             path: slug.HOME,
             element: <Home />,
+        },
+        {
+            path: slug.OFFER_CARS,
+            element: <OfferCars />,
         },
         {
             path: slug.CAR_DETAILS,

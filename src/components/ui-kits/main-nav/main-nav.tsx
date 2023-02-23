@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { AppContext } from '../../../services/context/app-context';
 import { home_v1 } from '../../../services/utils/svg';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import LoginIcon from '@mui/icons-material/Login';
 import * as slug from '../../../routes/slug';
 import Logo from '../logo';
@@ -61,6 +62,11 @@ const MainNav: React.FC = () => {
             path: slug.HOME,
             name: 'Home',
             icon: home_v1,
+        },
+        {
+            path: slug.OFFER_CARS,
+            name: 'Cars Offer',
+            icon: <LocalOfferIcon />,
         },
         {
             path: slug.SIGNIN,

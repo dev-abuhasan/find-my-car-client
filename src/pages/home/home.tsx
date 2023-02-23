@@ -1,12 +1,14 @@
-import { Box, Slider, Pagination, TextField, Menu } from '@mui/material';
 import React from 'react';
 import * as api from '../../services/axios/api';
+import { Box, Slider, Pagination, TextField, Menu } from '@mui/material';
 import { GetData } from '../../services/axios/https';
 import ClickBtn from '../../components/ui-kits/buttons/click-btn';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import { Card } from 'react-bootstrap';
+import Car from '../../components/ui-kits/car/car';
+import CarCarousel from '../../components/ui-kits/car/car-carousel';
+import MultiCar from '../../components/ui-kits/car/multi-car';
 
-interface DataItem {
+export interface DataItem {
     pages?: number;
     maxPriceCar?: number;
     maxSeats?: number;
@@ -14,7 +16,7 @@ interface DataItem {
     count?: number;
     cars?: any;
 }
-interface Filters {
+export interface Filters {
     keyword: any;
     sortPrice: any;
     price: any;
@@ -25,12 +27,15 @@ interface Filters {
 
 const Home: React.FC = () => {
     const [allCars, setAllCars] = React.useState<DataItem>({});
+    const [topCars, setTopCars] = React.useState<DataItem>();
+    const [likeCars, setLikeCars] = React.useState<DataItem>();
+    const [recommendCars, setRecommendCars] = React.useState<DataItem>();
     const [curr, setCurr] = React.useState(1);
     const [prices, setPrices] = React.useState<number[]>([0, 0]);
     const [seats, setSeats] = React.useState<number[]>([0, 0]);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-    console.log(allCars);
+    // console.log(allCars);
     const [filter, setFilter] = React.useState<Filters>({
         keyword: null,
         sortPrice: null,
@@ -60,6 +65,32 @@ const Home: React.FC = () => {
         }
         data();
     }, [curr, filter]);
+
+    React.useEffect(() => {
+        if (!recommendCars) {
+            const data = async () => {
+                let recommend = await GetData(api.GET_CARS_RECOMMEND, false);
+                setRecommendCars(recommend?.items);
+            }
+            data();
+        }
+
+        if (!likeCars) {
+            const data = async () => {
+
+                let MostLikeCar = await GetData(api.GET_CARS_MOST_LIKE, false);
+                setLikeCars(MostLikeCar?.items);
+            }
+            data();
+        }
+        if (!topCars) {
+            const data = async () => {
+                let getData = await GetData(api.GET_CARS_TOP_BY_USER, false);
+                setTopCars(getData?.items);
+            }
+            data();
+        }
+    }, [likeCars, recommendCars, topCars]);
 
     const priceRange = (event: Event, newValue: number | number[]) => {
         setPrices(newValue as number[]);
@@ -92,10 +123,14 @@ const Home: React.FC = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const carouselData = (Array.isArray(topCars) && topCars.slice(0, 3)) || [];
+
 
     return (
         <div className='container'>
-            <div className="filter-data">
+            {topCars && <CarCarousel data={carouselData} likeCars={likeCars} />}
+
+            <div className="filter-data mt-4">
                 <ClickBtn sx={{ width: 'auto' }} onClick={(e: any) => handleClick(e)}>
                     <FilterAltIcon />
                     Filters - Data
@@ -225,32 +260,19 @@ const Home: React.FC = () => {
             </div>
             <div className=' mt-2'>
                 <div className='row'>
-                    <div className="col-md-3">
-                        <Card style={{ width: '100%', height: '100%' }}>
-                            <Card.Header className='d-flex justify-content-between'>
-                                <span>In Stock: <b className='text-primary'>countInStock</b></span>
-                                <span>Year: <b className='text-primary'>year</b></span>
-                            </Card.Header>
-                            <Card.Img style={{ borderRadius: '0 ' }} variant="top" src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8Y2Fyc3xlbnwwfHwwfHw%3D&w=1000&q=80" />
-                            <Card.Body>
-                                <Card.Title>brand</Card.Title>
-                                
-                                <Card.Text>
-                                    Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.
-                                </Card.Text>
-                            </Card.Body>
-
-                            <Card.Footer>
-                                <Card.Link href="#">Card Link</Card.Link>
-                                <Card.Link href="#">Another Link</Card.Link>
-                            </Card.Footer>
-                        </Card>
-                    </div>
+                    {allCars?.cars?.map((d: any, i: number) =>
+                        <div key={i} className="col-md-6 col-lg-4 col-xl-3 mb-4">
+                            <Car id={d._id} model={d.model} brand={d.brand} color={d.color} offer={d.offer} price={d.price} year={d.year} image={d.image} />
+                        </div>
+                    )}
                 </div>
                 <Box sx={{ border: 1, margin: '10px 0 0 0', padding: '5px 0', borderColor: 'primary.main', display: 'flex', justifyContent: 'center' }}>
                     <Pagination count={allCars?.pages} page={curr} onChange={handleChange} />
                 </Box>
+            </div>
+            <div className={`mt-3 `}>
+                <h2 className='text-center'>Your Recommendation</h2>
+                <MultiCar data={recommendCars} />
             </div>
         </div >
     );

@@ -4,6 +4,7 @@ interface UserInfo {
 
 const getToken = JSON.parse(localStorage.getItem("finMyCarInfo") ?? "null") as UserInfo | null;
 
+
 export const headerConfig = {
     headers: {
         'Content-Type': 'application/json',

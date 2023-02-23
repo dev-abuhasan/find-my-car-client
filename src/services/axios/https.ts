@@ -33,9 +33,9 @@ export async function GetData(url: string, notification = true) {
     }
 }
 
-export const PostData = async (url: string, body: any, notification = true) => {
+export const PostData = async (url: string, body = {}, notification = true) => {
     try {
-        let data = await axios.post(url, body);
+        let data = await instance.post(url, body ? body : {});
         if (notification) {
             toast.success(data?.data.message ? data?.data.message : "Success");
         }
@@ -61,7 +61,7 @@ export const PostData = async (url: string, body: any, notification = true) => {
 
 export const PutData = async (url: string, body: any, notification = true) => {
     try {
-        let data = await axios.post(url, body);
+        let data = await instance.post(url, body);
         if (notification) {
             toast.success(data?.data.message ? data?.data.message : "Success");
         }
@@ -88,7 +88,7 @@ export const DeleteData = async (url: string, body: any, notification = true, co
     try {
         if (confirm) {
             if (window.confirm('Are you sure to delete!')) {
-                let data = await axios.delete(url, { data: body });
+                let data = await instance.delete(url, { data: body });
                 if (data) {
                     toast.success(data?.data?.message ? data?.data?.message : "Success");
                 }

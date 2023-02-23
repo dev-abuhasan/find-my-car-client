@@ -31,7 +31,7 @@ export const login = (email: string, password: string): ThunkAction<void, {}, {}
             window.location.href = slug.DASHBOARD;
         }
     } catch (error: any) {
-        if (error.response.data.items.error) {
+        if (error?.response?.data?.items?.error) {
             toast.error(error.response.data.items.error);
         } else {
             toast.error(error.response && error.response.data.message
