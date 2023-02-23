@@ -1,0 +1,25 @@
+@import "../../../services/scss/global.scss";
+
+.table_edit_button {
+    border: none;
+    padding: 0%;
+    margin: 0;
+    text-align: center;
+    svg {
+        color: $primary;
+    }
+}
+.table_del_button {
+    border: none;
+    padding: 0%;
+    margin: 0;
+    text-align: center;
+    svg {
+        color: $danger;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 2px;
+}

@@ -8,10 +8,12 @@ const config = {
     defaultPath: ''
 };
 
-// export const user_check = JSON.parse(localStorage.getItem('finMyCarInfo') || '');
+const userJSON = localStorage.getItem('finMyCarInfo');
+const user = userJSON ? JSON.parse(userJSON) : null;
+
 
 const Routings = () => {
-    return useRoutes([PublicRoute, PrivateRoute], config.basename);
+    return useRoutes([PublicRoute, user ? PrivateRoute : {}], config.basename);
 };
 
 export default Routings;

@@ -4,6 +4,7 @@ import { AppContext } from '../../../services/context/app-context';
 import { home_v1 } from '../../../services/utils/svg';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import LoginIcon from '@mui/icons-material/Login';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import * as slug from '../../../routes/slug';
 import Logo from '../logo';
 import './main-nav.scss';
@@ -73,6 +74,12 @@ const MainNav: React.FC = () => {
             name: 'Login',
             icon: <LoginIcon />,
         },
+        {
+            private: true,
+            path: slug.DASHBOARD,
+            name: 'Dashboard',
+            icon: <DashboardIcon />,
+        },
     ]
     const handleClick = () => {
         console.log('object');
@@ -92,15 +99,21 @@ const MainNav: React.FC = () => {
                 <ul className="nav-links m-0 d-flex align-items-center">
                     {
                         navList.map((d: any, i: number) =>
-                            <li className="nav-link" key={d.name + i}>
+                            d.private ? <li className={`nav-link ${user ? 'd-block' : 'd-none'}`} key={d.name + i}>
                                 <Link to={d.path} className={`${pathname === d.path ? 'activeRoute' : ''}`}>
                                     {d.icon}
                                     {d.name}
                                 </Link>
-                            </li>
+                            </li> :
+                                <li className={`nav-link`} key={d.name + i}>
+                                    <Link to={d.path} className={`${pathname === d.path ? 'activeRoute' : ''}`}>
+                                        {d.icon}
+                                        {d.name}
+                                    </Link>
+                                </li>
                         )
                     }
-                    {user && <li className="nav-link">
+                    {user && <li className={`nav-link`}>
                         <ClickBtn onClick={() => handleClick()}>
                             <img width="25px" className='me-2' src={user?.avatar} alt={user?.firstName} />
                             Logout

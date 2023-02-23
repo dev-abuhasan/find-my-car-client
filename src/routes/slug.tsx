@@ -10,3 +10,4 @@ export const CAR_DETAILS_P = "/car-details";
 
 //private
 export const DASHBOARD = '/dashboard';
+export const BOOKMARKS = '/bookmarks';

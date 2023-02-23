@@ -15,6 +15,7 @@ export interface DataItem {
     page?: number;
     count?: number;
     cars?: any;
+    brand?: any;
 }
 export interface Filters {
     keyword: any;
